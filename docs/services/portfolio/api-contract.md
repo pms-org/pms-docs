@@ -33,7 +33,7 @@ Handled at Gateway layer.
 
 ---
 
-### GET /api/portfolio/{id}
+### GET /api/portfolio/`{id}`
 
 Returns portfolio details for a given portfolio ID.
 
@@ -42,10 +42,10 @@ Handled at Gateway layer.
 
 **Path Parameters**
 
-| Name | Type | Description          |
-| id   | UUID | Portfolio identifier |
+| Name | Type | Description |
+|----|----|----|
+| `id` | UUID | Portfolio identifier |
 
----
 
 ### GET /api/portfolio/all
 
