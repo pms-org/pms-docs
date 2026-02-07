@@ -1,4 +1,9 @@
-# Failure Modes & Debugging
+---
+sidebar_position: 7
+title: Failure Modes
+---
+
+# Analytics Service — Failure Modes & Debugging
 
 ## Kafka Consumer Lag
 

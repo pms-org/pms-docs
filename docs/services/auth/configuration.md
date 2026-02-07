@@ -1,4 +1,9 @@
-# Configuration
+---
+sidebar_position: 4
+title: Configuration
+---
+
+# Auth Service — Configuration
 
 ## Required Environment Variables
 

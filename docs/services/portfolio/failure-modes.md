@@ -1,4 +1,9 @@
-# Failure Modes
+---
+sidebar_position: 7
+title: Failure Modes
+---
+
+# Portfolio Service — Failure Modes
 
 ## Duplicate Phone Number
 

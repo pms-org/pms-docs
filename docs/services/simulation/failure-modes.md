@@ -1,4 +1,9 @@
-# Failure Modes
+---
+sidebar_position: 7
+title: Failure Modes
+---
+
+# Simulation Service — Failure Modes
 
 ## RabbitMQ Connection Failure
 

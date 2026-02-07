@@ -1,4 +1,9 @@
-# Architecture
+---
+sidebar_position: 2
+title: Architecture
+---
+
+# API Gateway — Architecture
 
 ## High-Level Flow
 

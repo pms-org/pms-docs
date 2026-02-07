@@ -1,4 +1,9 @@
-# Failure Modes
+---
+sidebar_position: 7
+title: Failure Modes
+---
+
+# API Gateway — Failure Modes
 
 401 Unauthorized:
 - Invalid or missing JWT
