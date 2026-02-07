@@ -10,29 +10,46 @@
 
 Creates a new portfolio.
 
-Authentication:
-Handled at Gateway layer
+**Authentication**  
+Handled at Gateway layer.
 
-Request Body:
+**Request Body**
+
+```json
 {
   "name": "string",
-  "phoneNumber": number,
+  "phoneNumber": 1234567890,
   "address": "string"
 }
+```
 
-Response:
+**Response**
+
+```json
 {
   "portfolioId": "UUID"
 }
+```
 
 ---
 
-### GET /api/portfolio/{id}
+### GET /api/portfolio/`{id}`
 
-Returns portfolio details.
+Returns portfolio details for a given portfolio ID.
 
----
+**Authentication**  
+Handled at Gateway layer.
+
+**Path Parameters**
+
+| Name | Type | Description |
+|----|----|----|
+| `id` | UUID | Portfolio identifier |
+
 
 ### GET /api/portfolio/all
 
 Returns all portfolios.
+
+**Authentication**  
+Handled at Gateway layer.
