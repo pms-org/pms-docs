@@ -14,20 +14,24 @@ Authentication:
 Handled at Gateway layer
 
 Request Body:
+```json
 {
   "name": "string",
   "phoneNumber": number,
   "address": "string"
 }
+```
 
 Response:
+```json
 {
   "portfolioId": "UUID"
 }
+```
 
 ---
 
-### GET /api/portfolio/{id}
+### GET `/api/portfolio/{id}`
 
 Returns portfolio details.
 

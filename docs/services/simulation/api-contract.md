@@ -17,6 +17,8 @@ Request Body:
 PortfolioCreateRequest object
 
 Response:
+```json
 {
   "portfolioId": "UUID"
 }
+```

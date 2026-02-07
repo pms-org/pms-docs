@@ -60,7 +60,7 @@ Required
 ## 1.3 Get Portfolio Value History
 
 **Endpoint**
-GET /api/portfolio_value/history/{portfolioId}
+`GET /api/portfolio_value/history/{portfolioId}`
 
 **Path Parameters**
 
@@ -113,7 +113,7 @@ Required
 ## 2.2 Sector-wise Symbol Analysis
 
 **Endpoint**
-GET /api/sectors/sector-wise/{sector}
+`GET /api/sectors/sector-wise/{sector}`
 
 **Path Parameters**
 
@@ -137,7 +137,7 @@ Required
 ## 2.3 Portfolio-wise Sector Analysis
 
 **Endpoint**
-GET /api/sectors/portfolio-wise/{portfolioId}
+`GET /api/sectors/portfolio-wise/{portfolioId}`
 
 **Path Parameters**
 
@@ -161,7 +161,7 @@ Required
 ## 2.4 Portfolio + Sector Symbol Analysis
 
 **Endpoint**
-GET /api/sectors/portfolio-wise/{portfolioId}/sector-wise/{sector}
+`GET /api/sectors/portfolio-wise/{portfolioId}/sector-wise/{sector}`
 
 **Path Parameters**
 
