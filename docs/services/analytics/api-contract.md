@@ -21,7 +21,7 @@ Returns all analytics records stored in the analytics table.
 **Response**
 
 - HTTP 200 OK
-- Body: List<AnalysisEntity>
+- Body: `List<AnalysisEntity>`
 
 **Authentication**
 Required
@@ -74,7 +74,7 @@ Returns historical portfolio value snapshots for a given portfolio.
 **Response**
 
 - HTTP 200 OK
-- Body: List<PortfolioValueHistoryEntity>
+- Body: `List<PortfolioValueHistoryEntity>`
 
 **Authentication**
 Required
@@ -103,7 +103,7 @@ Returns sector-level aggregated metrics across all portfolios.
 **Response**
 
 - HTTP 200 OK
-- Body: List<SectorMetricsDto>
+- Body: `List<SectorMetricsDto>`
 
 **Authentication**
 Required
@@ -127,7 +127,7 @@ Returns symbol-level metrics for a specific sector.
 **Response**
 
 - HTTP 200 OK
-- Body: List<SymbolMetricsDto>
+- Body: `List<SymbolMetricsDto>`
 
 **Authentication**
 Required
@@ -151,7 +151,7 @@ Returns sector metrics limited to a specific portfolio.
 **Response**
 
 - HTTP 200 OK
-- Body: List<SectorMetricsDto>
+- Body: `List<SectorMetricsDto>`
 
 **Authentication**
 Required
@@ -176,7 +176,7 @@ Returns symbol-level analytics for a given portfolio within a specific sector.
 **Response**
 
 - HTTP 200 OK
-- Body: List<SymbolMetricsDto>
+- Body: `List<SymbolMetricsDto>`
 
 **Authentication**
 Required
@@ -194,7 +194,7 @@ Returns a catalog of all supported sectors and related metadata.
 **Response**
 
 - HTTP 200 OK
-- Body: List<SectorCatalogDto>
+- Body: `List<SectorCatalogDto>`
 
 **Authentication**
 Required

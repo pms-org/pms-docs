@@ -20,7 +20,7 @@
 
 Authorization header format:
 
-Authorization: Bearer <JWT>
+Authorization: Bearer `<JWT>`
 
 ## CORS / CSRF
 
