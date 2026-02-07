@@ -1,4 +1,9 @@
-# API Contract
+---
+sidebar_position: 3
+title: API Contract
+---
+
+# Auth Service — API Contract
 
 ## Base Path
 

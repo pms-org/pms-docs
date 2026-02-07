@@ -1,4 +1,9 @@
-# Deployment
+---
+sidebar_position: 5
+title: Deployment
+---
+
+# Auth Service — Deployment
 
 ## Container Ports
 

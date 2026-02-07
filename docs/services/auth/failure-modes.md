@@ -1,4 +1,9 @@
-# Failure Modes
+---
+sidebar_position: 7
+title: Failure Modes
+---
+
+# Auth Service — Failure Modes
 
 ## Login Failure (401)
 

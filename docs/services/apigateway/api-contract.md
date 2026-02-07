@@ -1,4 +1,9 @@
-# API Contract
+---
+sidebar_position: 3
+title: API Contract
+---
+
+# API Gateway — API Contract
 
 ## Role
 

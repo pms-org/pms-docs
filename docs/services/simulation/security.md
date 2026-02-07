@@ -1,4 +1,9 @@
-# Security Model
+---
+sidebar_position: 6
+title: Security
+---
+
+# Simulation Service — Security Model
 
 ## Authentication
 

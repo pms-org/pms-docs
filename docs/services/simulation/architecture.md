@@ -1,4 +1,9 @@
-# Architecture
+---
+sidebar_position: 2
+title: Architecture
+---
+
+# Simulation Service — Architecture
 
 ## High-Level Flow
 

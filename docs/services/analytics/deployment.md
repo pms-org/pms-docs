@@ -1,4 +1,9 @@
-# Deployment
+---
+sidebar_position: 5
+title: Deployment
+---
+
+# Analytics Service — Deployment
 
 ## Deployment Model
 - Kubernetes Deployment on EKS

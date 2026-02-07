@@ -1,4 +1,9 @@
-# Configuration
+---
+sidebar_position: 4
+title: Configuration
+---
+
+# API Gateway — Configuration
 
 server.port=8080
 

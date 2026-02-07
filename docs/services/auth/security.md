@@ -1,4 +1,9 @@
-# Security Model
+---
+sidebar_position: 6
+title: Security
+---
+
+# Auth Service — Security Model
 
 ## Authentication
 
