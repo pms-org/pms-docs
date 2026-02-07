@@ -21,7 +21,7 @@ REST endpoints (base path: `/api/rttm`)
   - Purpose: Return a snapshot of TPS trend and latency metrics (used by dashboards).
   - Authentication: platform-level.
 
-- GET /api/rttm/track-trade?tradeId=<uuid>
+- GET `/api/rttm/track-trade?tradeId=<uuid>`
   - Purpose: Returns the tracking/telemetry history for a single trade (by tradeId).
   - Query params: `tradeId` (UUID) — required.
 
