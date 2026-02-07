@@ -8,15 +8,21 @@
 
 ### POST /simulation/create-portfolio
 
-Creates a new portfolio via Portfolio Service and stores the ID.
+Creates a new portfolio via Portfolio Service and stores the generated portfolio ID.
 
-Authentication:
-Authorization header required (Bearer token)
+**Authentication**  
+Authorization header required (Bearer token).
 
-Request Body:
-PortfolioCreateRequest object
+**Request Body**
 
-Response:
+```text
+PortfolioCreateRequest
+```
+
+**Response**
+
+```json
 {
   "portfolioId": "UUID"
 }
+```
