@@ -19,8 +19,14 @@
     "type": "git",
     "url": "git+https://github.com/pms-org/pms-docs.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "pms",
+    "documentation",
+    "portfolio-management",
+    "docusaurus",
+    "platform-documentation"
+  ],
+  "author": "PMS Platform Team",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/pms-org/pms-docs/issues"
