@@ -6,7 +6,7 @@
   - Uses a protobuf-based Kafka listener (`protobufKafkaListenerContainerFactory`).
   - Receives batches of `TradeEventProto` and packages them into `PollBatch` objects.
 
-- In-memory buffer (LinkedBlockingDeque<PollBatch>)
+- In-memory buffer (`LinkedBlockingDeque<PollBatch>`)
   - Buffers incoming poll batches to allow batching and backpressure handling.
 
 - ValidationBatchProcessor

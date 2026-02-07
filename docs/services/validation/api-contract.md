@@ -18,7 +18,12 @@ REST endpoints
 
 - POST /trade-simulator/simulate-generate
   - Purpose: Generate N random trades and send them to the ingestion topic. Useful for local/system testing.
-  - Request body (optional): { "count": <int>, "portfolioId": "<uuid-or-string>" }
+  - Request body (optional): JSON example
+
+```json
+{ "count": 10, "portfolioId": "uuid-or-string" }
+```
+
   - Authentication: None.
 
 Kafka topics (external interface)
