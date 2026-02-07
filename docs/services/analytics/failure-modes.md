@@ -31,7 +31,7 @@ Diagnosis:
 
 Expected Behavior:
 
-- <30 second delay acceptable
+- > 30 second delay acceptable
 
 Abnormal Behavior:
 
