@@ -1,44 +1,215 @@
-# API Contract
+# API Contract — pms-analytics
 
-## REST Endpoints
+This document describes the **public REST APIs** exposed by the `pms-analytics` service.
 
-### GET /analytics/portfolio/{portfolioId}
+All endpoints are routed through the API Gateway and require authentication unless explicitly configured otherwise at the gateway level.
 
-Purpose: Portfolio analytics summary  
-Authentication: Required
-
----
-
-### GET /analytics/portfolio/{portfolioId}/positions
-
-Purpose: Holdings + realised/unrealised PnL  
-Authentication: Required
+Base Path: `/api`
 
 ---
 
-### GET /analytics/portfolio/{portfolioId}/sector-composition
+# 1. Analysis APIs
 
-Purpose: Sector allocation breakdown  
-Authentication: Required
+## 1.1 Get All Analysis Records
+
+**Endpoint**
+GET /api/analysis/all
+
+**Purpose**
+Returns all analytics records stored in the analytics table.
+
+**Response**
+
+- HTTP 200 OK
+- Body: List<AnalysisEntity>
+
+**Authentication**
+Required
+
+**Used By**
+
+- Internal dashboards
+- Admin/inspection tools
 
 ---
 
-### GET /analytics/risk/{portfolioId}
+## 1.2 Trigger Unrealised PnL Calculation
 
-Purpose: Risk metrics  
-Authentication: Required
+**Endpoint**
+GET /api/unrealized
+
+**Purpose**
+Triggers unrealised PnL recalculation logic.  
+This endpoint does not return a body. It is primarily used to manually invoke recalculation.
+
+**Response**
+
+- HTTP 200 OK
+- No response body
+
+**Authentication**
+Required
+
+**Notes**
+
+- This is an execution endpoint, not a data retrieval endpoint.
+- WebSocket topics are used to push updated values to clients.
 
 ---
 
-## WebSocket Topics
+## 1.3 Get Portfolio Value History
 
-### position-update
+**Endpoint**
+GET /api/portfolio_value/history/{portfolioId}
 
-- Holdings changes
-- Realised PnL updates
+**Path Parameters**
 
-### unrealised-pnl
+| Name        | Type | Description          |
+| ----------- | ---- | -------------------- |
+| portfolioId | UUID | Portfolio identifier |
 
-- Price-driven PnL recalculations
+**Purpose**
+Returns historical portfolio value snapshots for a given portfolio.
 
-Authentication required via gateway token propagation.
+**Response**
+
+- HTTP 200 OK
+- Body: List<PortfolioValueHistoryEntity>
+
+**Authentication**
+Required
+
+**Used By**
+
+- Portfolio performance charts
+- Risk and trend analysis dashboards
+
+---
+
+# 2. Sector Analysis APIs
+
+Base Path: `/api/sectors`
+
+---
+
+## 2.1 Overall Sector Analysis
+
+**Endpoint**
+GET /api/sectors/overall
+
+**Purpose**
+Returns sector-level aggregated metrics across all portfolios.
+
+**Response**
+
+- HTTP 200 OK
+- Body: List<SectorMetricsDto>
+
+**Authentication**
+Required
+
+---
+
+## 2.2 Sector-wise Symbol Analysis
+
+**Endpoint**
+GET /api/sectors/sector-wise/{sector}
+
+**Path Parameters**
+
+| Name   | Type   | Description |
+| ------ | ------ | ----------- |
+| sector | String | Sector name |
+
+**Purpose**
+Returns symbol-level metrics for a specific sector.
+
+**Response**
+
+- HTTP 200 OK
+- Body: List<SymbolMetricsDto>
+
+**Authentication**
+Required
+
+---
+
+## 2.3 Portfolio-wise Sector Analysis
+
+**Endpoint**
+GET /api/sectors/portfolio-wise/{portfolioId}
+
+**Path Parameters**
+
+| Name        | Type | Description          |
+| ----------- | ---- | -------------------- |
+| portfolioId | UUID | Portfolio identifier |
+
+**Purpose**
+Returns sector metrics limited to a specific portfolio.
+
+**Response**
+
+- HTTP 200 OK
+- Body: List<SectorMetricsDto>
+
+**Authentication**
+Required
+
+---
+
+## 2.4 Portfolio + Sector Symbol Analysis
+
+**Endpoint**
+GET /api/sectors/portfolio-wise/{portfolioId}/sector-wise/{sector}
+
+**Path Parameters**
+
+| Name        | Type   | Description          |
+| ----------- | ------ | -------------------- |
+| portfolioId | UUID   | Portfolio identifier |
+| sector      | String | Sector name          |
+
+**Purpose**
+Returns symbol-level analytics for a given portfolio within a specific sector.
+
+**Response**
+
+- HTTP 200 OK
+- Body: List<SymbolMetricsDto>
+
+**Authentication**
+Required
+
+---
+
+## 2.5 Sector Catalog
+
+**Endpoint**
+GET /api/sectors/sector-catalog
+
+**Purpose**
+Returns a catalog of all supported sectors and related metadata.
+
+**Response**
+
+- HTTP 200 OK
+- Body: List<SectorCatalogDto>
+
+**Authentication**
+Required
+
+---
+
+# WebSocket Topics
+
+This service **publishes** but does not expose WebSocket endpoints directly.
+
+## Topics Published
+
+| Topic           | Description                     |
+| --------------- | ------------------------------- |
+| position-update | Holdings & realised PnL updates |
+| unrealised-pnl  | Unrealised PnL recalculations   |
+
+Authentication and subscription management are handled at the API Gateway layer.
