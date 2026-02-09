@@ -19,10 +19,10 @@ This document provides comprehensive documentation for all **public REST APIs an
 
 ## API Categories
 
-1. [Analysis APIs](#1-analysis-apis) - Core portfolio analytics and holdings
-2. [Sector Analysis APIs](#2-sector-analysis-apis) - Sector composition and breakdown
-3. [Transaction APIs](#3-transaction-apis) - Manual transaction publishing (testing)
-4. [WebSocket Topics](#4-websocket-topics) - Real-time data streams
+1. [Analysis APIs](#analysis-apis) - Core portfolio analytics and holdings
+2. [Sector Analysis APIs](#sector-analysis-apis) - Sector composition and breakdown
+3. [Transaction APIs](#transaction-apis) - Manual transaction publishing (testing)
+4. [WebSocket Topics](#websocket-topics) - Real-time data streams
 
 ---
 
