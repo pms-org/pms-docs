@@ -76,19 +76,6 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: "category",
-          label: "RTTM Service",
-          items: [
-            "services/rttm/overview",
-            "services/rttm/architecture",
-            "services/rttm/api-contract",
-            "services/rttm/configuration",
-            "services/rttm/deployment",
-            "services/rttm/security",
-            "services/rttm/failure-modes",
-          ],
-        },
-        {
-          type: "category",
           label: "Simulation Service",
           items: [
             "services/simulation/overview",
@@ -98,6 +85,33 @@ const sidebars: SidebarsConfig = {
             "services/simulation/deployment",
             "services/simulation/security",
             "services/simulation/failure-modes",
+          ],
+        },
+        },
+        {
+          type: "category",
+          label: "Trade Capture Service",
+          items: [
+            "services/trade-capture/overview",
+            "services/trade-capture/architecture",
+            "services/trade-capture/api-contract",
+            "services/trade-capture/configuration",
+            "services/trade-capture/deployment",
+            "services/trade-capture/security",
+            "services/trade-capture/failure-modes",
+          ],
+        },
+        {
+          type: "category",
+          label: "Leaderboard Service",
+          items: [
+            "services/leaderboard/overview",
+            "services/leaderboard/architecture",
+            "services/leaderboard/api-contract",
+            "services/leaderboard/configuration",
+            "services/leaderboard/deployment",
+            "services/leaderboard/security",
+            "services/leaderboard/failure-modes",
           ],
         },
         {
@@ -111,6 +125,19 @@ const sidebars: SidebarsConfig = {
             "services/transactional/deployment",
             "services/transactional/security",
             "services/transactional/failure-modes",
+          ],
+        },
+        {
+          type: "category",
+          label: "RTTM Service",
+          items: [
+            "services/rttm/overview",
+            "services/rttm/architecture",
+            "services/rttm/api-contract",
+            "services/rttm/configuration",
+            "services/rttm/deployment",
+            "services/rttm/security",
+            "services/rttm/failure-modes",
           ],
         },
         {
