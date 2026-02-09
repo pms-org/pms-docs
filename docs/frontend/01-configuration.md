@@ -1,3 +1,9 @@
+---
+id: frontend/configuration-detailed
+title: "Configuration (detailed)"
+sidebar_position: 1
+---
+
 # 🔧 Configuration Guide
 
 ## Overview
