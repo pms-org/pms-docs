@@ -76,19 +76,6 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: "category",
-          label: "RTTM Service",
-          items: [
-            "services/rttm/overview",
-            "services/rttm/architecture",
-            "services/rttm/api-contract",
-            "services/rttm/configuration",
-            "services/rttm/deployment",
-            "services/rttm/security",
-            "services/rttm/failure-modes",
-          ],
-        },
-        {
-          type: "category",
           label: "Simulation Service",
           items: [
             "services/simulation/overview",
@@ -99,6 +86,7 @@ const sidebars: SidebarsConfig = {
             "services/simulation/security",
             "services/simulation/failure-modes",
           ],
+        },
         },
         {
           type: "category",
@@ -137,6 +125,19 @@ const sidebars: SidebarsConfig = {
             "services/transactional/deployment",
             "services/transactional/security",
             "services/transactional/failure-modes",
+          ],
+        },
+        {
+          type: "category",
+          label: "RTTM Service",
+          items: [
+            "services/rttm/overview",
+            "services/rttm/architecture",
+            "services/rttm/api-contract",
+            "services/rttm/configuration",
+            "services/rttm/deployment",
+            "services/rttm/security",
+            "services/rttm/failure-modes",
           ],
         },
         {
