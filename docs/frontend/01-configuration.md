@@ -1,5 +1,5 @@
 ---
-id: frontend/configuration-detailed
+id: configuration-detailed
 title: "Configuration (detailed)"
 sidebar_position: 1
 ---

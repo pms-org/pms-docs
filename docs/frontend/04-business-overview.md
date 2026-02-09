@@ -138,9 +138,9 @@ Data Layer (Databases & Message Queues)
 
 ### Technical KPIs
 - **System Availability**: 99.9% uptime target
-- **Response Time**: <100ms for critical operations
+- **Response Time**: `<100ms` for critical operations
 - **Data Accuracy**: 99.99% data integrity
-- **Alert Response**: <5 minutes for critical alerts
+- **Alert Response**: `<5` minutes for critical alerts
 
 ## 🌍 Market Context
 
