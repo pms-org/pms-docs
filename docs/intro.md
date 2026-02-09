@@ -4,8 +4,10 @@ title: Introduction
 ---
 
 ---
+
 sidebar_position: 1
 title: Introduction
+
 ---
 
 # Introduction to PMS Platform
@@ -27,6 +29,7 @@ PMS serves as the central nervous system for investment portfolio operations, en
 ## Key Features
 
 ### Multi-Service Architecture
+
 - **Portfolio Service**: Core portfolio management and investor data handling
 - **Simulation Service**: Portfolio simulation and scenario modeling
 - **Analytics Service**: Risk analysis, PnL calculations, and performance metrics
@@ -39,12 +42,14 @@ PMS serves as the central nervous system for investment portfolio operations, en
 - **Transactional Service**: Transaction processing and settlement
 
 ### Enterprise Security
+
 - **JWT Authentication**: Secure token-based authentication with role-based access control
 - **AWS Secrets Manager**: Centralized secrets management for database credentials and API keys
 - **Network Security**: VPC isolation, security groups, and encrypted communications
 - **Audit Trails**: Comprehensive logging and audit capabilities for compliance
 
 ### Cloud-Native Infrastructure
+
 - **AWS EKS**: Managed Kubernetes platform for container orchestration
 - **Application Load Balancer**: High-availability load balancing with auto-scaling
 - **PostgreSQL RDS**: Aurora PostgreSQL for reliable, scalable data storage
@@ -52,6 +57,7 @@ PMS serves as the central nervous system for investment portfolio operations, en
 - **Monitoring & Observability**: Comprehensive logging, metrics, and alerting
 
 ### High Availability & Scalability
+
 - **Auto-scaling**: Horizontal pod autoscaling based on CPU/memory utilization
 - **Multi-zone Deployment**: Cross-AZ deployment for fault tolerance
 - **Database Replication**: Aurora read replicas for performance optimization
@@ -60,6 +66,7 @@ PMS serves as the central nervous system for investment portfolio operations, en
 ## Technology Stack
 
 ### Backend Services
+
 - **Java Spring Boot**: Microservices framework with reactive programming
 - **Spring Cloud Gateway**: API gateway with routing and filtering
 - **PostgreSQL**: Primary data store with JSONB support for flexible schemas
@@ -67,11 +74,13 @@ PMS serves as the central nervous system for investment portfolio operations, en
 - **Kafka**: Event-driven architecture for inter-service communication
 
 ### Frontend
+
 - **React**: Modern web application framework
 - **WebSocket**: Real-time data streaming for live updates
 - **Material-UI**: Enterprise-grade component library
 
 ### Infrastructure & DevOps
+
 - **Kubernetes**: Container orchestration and service management
 - **Helm**: Package management for Kubernetes applications
 - **Terraform**: Infrastructure as Code for AWS resources
@@ -81,17 +90,20 @@ PMS serves as the central nervous system for investment portfolio operations, en
 ## Architecture Principles
 
 ### Microservices Design
+
 - **Domain-Driven Design**: Services aligned with business domains
 - **Event Sourcing**: Outbox pattern for reliable event publishing
 - **CQRS**: Command Query Responsibility Segregation for optimal reads/writes
 - **Saga Pattern**: Distributed transaction management
 
 ### Security First
+
 - **Zero Trust**: Every request authenticated and authorized
 - **Defense in Depth**: Multiple security layers from network to application
 - **Compliance Ready**: SOC 2, GDPR, and industry-specific compliance support
 
 ### Operational Excellence
+
 - **Infrastructure as Code**: Version-controlled infrastructure
 - **Automated Testing**: Comprehensive unit, integration, and E2E tests
 - **Blue-Green Deployments**: Zero-downtime deployment strategies
@@ -100,6 +112,7 @@ PMS serves as the central nervous system for investment portfolio operations, en
 ## Target Audience
 
 PMS is designed for:
+
 - **Investment Firms**: Hedge funds, asset managers, and investment banks
 - **Financial Institutions**: Banks and credit unions managing investment portfolios
 - **FinTech Companies**: Technology providers building portfolio management solutions
@@ -115,4 +128,4 @@ To begin using PMS:
 4. **Integration**: Connect with existing systems via REST APIs and WebSocket streams
 5. **Monitoring**: Set up dashboards and alerts for operational visibility
 
-For detailed setup instructions, refer to the [Deployment Guide](../infrastructure/deployment-guide.md) and [API Reference](../reference/endpoints.md).
+For detailed setup instructions, refer to the [Deployment Guide](operations/deployment-guide.md) and [API Reference](reference/endpoints.md).

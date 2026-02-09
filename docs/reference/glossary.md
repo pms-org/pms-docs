@@ -4,8 +4,10 @@ title: Glossary
 ---
 
 ---
+
 sidebar_position: 3
 title: Glossary
+
 ---
 
 # Glossary
@@ -24,7 +26,7 @@ title: Glossary
 
 ## B
 
-**Bearer Token**: A type of access token used in OAuth 2.0 where the token is included in the Authorization header as "Bearer <token>".
+**Bearer Token**: A type of access token used in OAuth 2.0 where the token is included in the Authorization header as "Bearer &lt;token&gt;".
 
 **Blue-Green Deployment**: A deployment strategy where two identical environments (blue and green) are maintained, allowing for zero-downtime deployments by switching traffic between them.
 

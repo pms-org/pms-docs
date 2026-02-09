@@ -4,8 +4,10 @@ title: Environments
 ---
 
 ---
+
 sidebar_position: 7
 title: Environments
+
 ---
 
 # Environments
@@ -17,9 +19,11 @@ The PMS platform operates across multiple environments to support the complete s
 ## Environment Architecture
 
 ### Development Environment (dev)
+
 **Purpose**: Primary development and testing environment for feature development and integration testing.
 
 **Key Characteristics**:
+
 - **Kubernetes Namespace**: `pms-dev`
 - **AWS Region**: us-east-1
 - **EKS Cluster**: pms-dev
@@ -29,15 +33,18 @@ The PMS platform operates across multiple environments to support the complete s
 - **Monitoring**: Basic logging and health checks
 
 **Use Cases**:
+
 - Feature development and debugging
 - Integration testing with external services
 - Performance testing with realistic data volumes
 - API contract validation
 
 ### Testing Environment (test)
+
 **Purpose**: Quality assurance and automated testing environment.
 
 **Key Characteristics**:
+
 - **Kubernetes Namespace**: `pms-test`
 - **AWS Region**: us-east-1
 - **EKS Cluster**: pms-dev (shared with dev)
@@ -47,15 +54,18 @@ The PMS platform operates across multiple environments to support the complete s
 - **Monitoring**: Comprehensive test result aggregation
 
 **Use Cases**:
+
 - Automated regression testing
 - Load and performance testing
 - Security testing and vulnerability scanning
 - User acceptance testing (UAT)
 
 ### Production Environment (prod)
+
 **Purpose**: Live production environment serving end users and external systems.
 
 **Key Characteristics**:
+
 - **Kubernetes Namespace**: `pms-prod`
 - **AWS Region**: us-east-1 (primary), us-east-2 (DR)
 - **EKS Cluster**: pms-prod
@@ -66,6 +76,7 @@ The PMS platform operates across multiple environments to support the complete s
 - **Backup**: Automated backups with cross-region replication
 
 **Use Cases**:
+
 - Live user traffic and transactions
 - Production API integrations
 - Real-time data processing and analytics
@@ -135,11 +146,13 @@ Each environment uses separate database schemas to prevent data contamination:
 ### Test Data Strategy
 
 **Development Environment**:
+
 - Anonymous test data generation
 - Realistic data volumes for performance testing
 - Automated data refresh scripts
 
 **Testing Environment**:
+
 - Curated test datasets with known edge cases
 - Performance testing data (large volumes)
 - Compliance and security test scenarios
@@ -147,6 +160,7 @@ Each environment uses separate database schemas to prevent data contamination:
 ## Access Control
 
 ### Development Access
+
 ```yaml
 # RBAC Configuration
 apiVersion: rbac.authorization.k8s.io/v1
@@ -155,9 +169,9 @@ metadata:
   name: developer-access
   namespace: pms-dev
 subjects:
-- kind: Group
-  name: developers
-  apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: developers
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: edit
@@ -165,6 +179,7 @@ roleRef:
 ```
 
 ### Production Access
+
 ```yaml
 # Restricted RBAC
 apiVersion: rbac.authorization.k8s.io/v1
@@ -173,8 +188,8 @@ metadata:
   name: prod-access
   namespace: pms-prod
 subjects:
-- kind: User
-  name: platform-admin@pms.com
+  - kind: User
+    name: platform-admin@pms.com
 roleRef:
   kind: ClusterRole
   name: view
@@ -186,16 +201,19 @@ roleRef:
 ### CI/CD Pipelines
 
 **Development**:
+
 - Automatic deployment on merge to `develop` branch
 - Rolling updates with zero downtime
 - Automated smoke tests post-deployment
 
 **Testing**:
+
 - Deployment triggered by release candidates
 - Comprehensive test suite execution
 - Manual approval gates for production promotion
 
 **Production**:
+
 - Blue-green deployment strategy
 - Automated canary releases
 - Rollback automation within 5 minutes
@@ -220,11 +238,13 @@ helm upgrade --install pms-platform ./charts/pms-platform \
 ## Monitoring and Observability
 
 ### Development Monitoring
+
 - Basic health checks and pod status
 - Application logs aggregation
 - Error rate monitoring
 
 ### Production Monitoring
+
 - Full metrics collection (Prometheus)
 - Distributed tracing (Jaeger)
 - Log aggregation and analysis (ELK stack)
@@ -232,26 +252,29 @@ helm upgrade --install pms-platform ./charts/pms-platform \
 
 ### Key Metrics by Environment
 
-| Metric | Development | Testing | Production |
-|--------|-------------|---------|------------|
-| Uptime SLA | 99% | 99.5% | 99.9% |
-| Response Time | <500ms | <200ms | <100ms |
-| Error Rate | <5% | <1% | <0.1% |
-| Monitoring Coverage | Basic | Comprehensive | Full |
+| Metric              | Development | Testing       | Production |
+| ------------------- | ----------- | ------------- | ---------- |
+| Uptime SLA          | 99%         | 99.5%         | 99.9%      |
+| Response Time       | &lt;500ms   | &lt;200ms     | &lt;100ms  |
+| Error Rate          | &lt;5%      | &lt;1%        | &lt;0.1%   |
+| Monitoring Coverage | Basic       | Comprehensive | Full       |
 
 ## Disaster Recovery
 
 ### Development DR
+
 - **RTO**: 4 hours
 - **RPO**: 1 day
 - **Strategy**: Rebuild from infrastructure as code
 
 ### Production DR
+
 - **RTO**: 1 hour
 - **RPO**: 5 minutes
 - **Strategy**: Multi-region active-passive with automated failover
 
 ### DR Testing
+
 - Quarterly DR drills in testing environment
 - Annual full-scale DR testing in production
 - Automated failover validation
@@ -259,11 +282,13 @@ helm upgrade --install pms-platform ./charts/pms-platform \
 ## Cost Optimization
 
 ### Development Costs
+
 - Auto-scaling with scale-to-zero capabilities
 - Spot instances for non-critical workloads
 - Scheduled shutdown during off-hours
 
 ### Production Costs
+
 - Reserved instances for predictable workloads
 - Auto-scaling based on traffic patterns
 - Cost allocation tags for chargeback
@@ -271,6 +296,7 @@ helm upgrade --install pms-platform ./charts/pms-platform \
 ## Environment Promotion
 
 ### Branching Strategy
+
 ```
 main (production)
 ├── release/v1.2.3 (testing)
@@ -280,12 +306,14 @@ main (production)
 ```
 
 ### Promotion Process
+
 1. **Feature Development**: Work in feature branches
 2. **Integration**: Merge to `develop` → auto-deploy to dev
 3. **Testing**: Create release branch → deploy to test
 4. **Production**: Merge release to `main` → deploy to prod
 
 ### Quality Gates
+
 - **Development**: Unit tests, integration tests
 - **Testing**: Full regression suite, performance tests, security scan
 - **Production**: Manual approval, final smoke tests
@@ -295,6 +323,7 @@ main (production)
 ### Common Issues
 
 #### Environment Connectivity
+
 ```bash
 # Check cluster access
 kubectl config current-context
@@ -308,6 +337,7 @@ kubectl run postgres-client --image=postgres:15-alpine \
 ```
 
 #### Deployment Failures
+
 ```bash
 # Check helm release status
 helm list -n pms-dev
@@ -320,6 +350,7 @@ kubectl get events -n pms-dev --sort-by=.metadata.creationTimestamp
 ```
 
 #### Resource Issues
+
 ```bash
 # Check node capacity
 kubectl describe nodes

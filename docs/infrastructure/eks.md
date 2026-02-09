@@ -4,8 +4,10 @@ title: EKS
 ---
 
 ---
+
 sidebar_position: 1
 title: EKS
+
 ---
 
 # EKS Infrastructure
@@ -19,6 +21,7 @@ The PMS platform runs on Amazon Elastic Kubernetes Service (EKS), a managed Kube
 ### Cluster Configuration
 
 **Production Cluster**:
+
 - **Name**: pms-prod
 - **Region**: us-east-1
 - **Kubernetes Version**: 1.28+
@@ -26,6 +29,7 @@ The PMS platform runs on Amazon Elastic Kubernetes Service (EKS), a managed Kube
 - **High Availability**: Multi-AZ deployment across 3 availability zones
 
 **Development Cluster**:
+
 - **Name**: pms-dev
 - **Region**: us-east-1
 - **Kubernetes Version**: 1.28+
@@ -37,6 +41,7 @@ The PMS platform runs on Amazon Elastic Kubernetes Service (EKS), a managed Kube
 #### Production Node Groups
 
 **Application Nodes**:
+
 ```yaml
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
@@ -61,27 +66,29 @@ managedNodeGroups:
 ```
 
 **Database Nodes** (Future):
+
 ```yaml
-  - name: db-nodes
-    instanceType: r6i.xlarge
-    minSize: 2
-    maxSize: 8
-    desiredCapacity: 3
-    privateNetworking: true
-    iam:
-      withAddonPolicies:
-        ebs: true
-    labels:
-      role: database
-    taints:
-      - key: dedicated
-        value: database
-        effect: NoSchedule
+- name: db-nodes
+  instanceType: r6i.xlarge
+  minSize: 2
+  maxSize: 8
+  desiredCapacity: 3
+  privateNetworking: true
+  iam:
+    withAddonPolicies:
+      ebs: true
+  labels:
+    role: database
+  taints:
+    - key: dedicated
+      value: database
+      effect: NoSchedule
 ```
 
 #### Development Node Groups
 
 **General Purpose Nodes**:
+
 ```yaml
 managedNodeGroups:
   - name: dev-nodes
@@ -104,6 +111,7 @@ managedNodeGroups:
 ### VPC Configuration
 
 **Production VPC**:
+
 - **CIDR**: 10.0.0.0/16
 - **Subnets**:
   - Public: 10.0.1.0/24, 10.0.2.0/24, 10.0.3.0/24 (3 AZs)
@@ -114,6 +122,7 @@ managedNodeGroups:
 **Security Groups**:
 
 **EKS Control Plane SG**:
+
 ```
 Inbound:
 - 443 (HTTPS) from worker node SGs
@@ -124,6 +133,7 @@ Outbound:
 ```
 
 **Worker Node SG**:
+
 ```
 Inbound:
 - All traffic from self (pod-to-pod)
@@ -147,8 +157,8 @@ metadata:
 spec:
   podSelector: {}
   policyTypes:
-  - Ingress
-  - Egress
+    - Ingress
+    - Egress
 
 ---
 # Allow intra-namespace traffic
@@ -160,14 +170,14 @@ metadata:
 spec:
   podSelector: {}
   policyTypes:
-  - Ingress
-  - Egress
+    - Ingress
+    - Egress
   ingress:
-  - from:
-    - podSelector: {}
+    - from:
+        - podSelector: {}
   egress:
-  - to:
-    - podSelector: {}
+    - to:
+        - podSelector: {}
 
 ---
 # Allow API Gateway to access all services
@@ -181,22 +191,22 @@ spec:
     matchLabels:
       app.kubernetes.io/name: apigateway
   policyTypes:
-  - Egress
+    - Egress
   egress:
-  - to:
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: portfolio
-    ports:
-    - protocol: TCP
-      port: 8095
-  - to:
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: simulation
-    ports:
-    - protocol: TCP
-      port: 8090
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: portfolio
+      ports:
+        - protocol: TCP
+          port: 8095
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: simulation
+      ports:
+        - protocol: TCP
+          port: 8090
   # Add other service rules...
 ```
 
@@ -205,6 +215,7 @@ spec:
 ### EBS Volumes
 
 **Persistent Volume Claims**:
+
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -221,6 +232,7 @@ spec:
 ```
 
 **Storage Classes**:
+
 ```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -238,6 +250,7 @@ allowVolumeExpansion: true
 ### EFS (Future)
 
 For shared file storage across pods:
+
 ```yaml
 apiVersion: v1
 kind: PersistentVolume
@@ -260,6 +273,7 @@ spec:
 ### IAM Roles for Service Accounts (IRSA)
 
 **API Gateway IRSA**:
+
 ```yaml
 apiVersion: v1
 kind: ServiceAccount
@@ -274,12 +288,13 @@ kind: ClusterRole
 metadata:
   name: apigateway-role
 rules:
-- apiGroups: [""]
-  resources: ["secrets"]
-  verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list", "watch"]
 ```
 
 **IAM Policy for API Gateway**:
+
 ```json
 {
   "Version": "2012-10-17",
@@ -294,10 +309,7 @@ rules:
     },
     {
       "Effect": "Allow",
-      "Action": [
-        "kms:Decrypt",
-        "kms:DescribeKey"
-      ],
+      "Action": ["kms:Decrypt", "kms:DescribeKey"],
       "Resource": "arn:aws:kms:us-east-1:123456789012:key/*"
     }
   ]
@@ -307,6 +319,7 @@ rules:
 ### RBAC Configuration
 
 **Cluster Admin Role**:
+
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -317,12 +330,13 @@ roleRef:
   kind: ClusterRole
   name: cluster-admin
 subjects:
-- kind: User
-  name: admin@pms-platform.com
-  apiGroup: rbac.authorization.k8s.io
+  - kind: User
+    name: admin@pms-platform.com
+    apiGroup: rbac.authorization.k8s.io
 ```
 
 **Namespace-specific Roles**:
+
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -330,9 +344,9 @@ metadata:
   name: developer
   namespace: pms-dev
 rules:
-- apiGroups: ["", "apps", "batch"]
-  resources: ["pods", "deployments", "jobs", "configmaps"]
-  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["", "apps", "batch"]
+    resources: ["pods", "deployments", "jobs", "configmaps"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 ```
 
 ## Monitoring and Logging
@@ -340,6 +354,7 @@ rules:
 ### CloudWatch Integration
 
 **EKS Control Plane Logging**:
+
 ```bash
 aws eks update-cluster-config \
   --region us-east-1 \
@@ -348,6 +363,7 @@ aws eks update-cluster-config \
 ```
 
 **Container Insights**:
+
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -364,6 +380,7 @@ data:
 ### Prometheus and Grafana
 
 **Prometheus Installation**:
+
 ```bash
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm install prometheus prometheus-community/prometheus \
@@ -372,6 +389,7 @@ helm install prometheus prometheus-community/prometheus \
 ```
 
 **Grafana Installation**:
+
 ```bash
 helm repo add grafana https://grafana.github.io/helm-charts
 helm install grafana grafana/grafana \
@@ -384,6 +402,7 @@ helm install grafana grafana/grafana \
 ### Horizontal Pod Autoscaling
 
 **API Gateway HPA**:
+
 ```yaml
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
@@ -398,23 +417,24 @@ spec:
   minReplicas: 3
   maxReplicas: 10
   metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 70
-  - type: Resource
-    resource:
-      name: memory
-      target:
-        type: Utilization
-        averageUtilization: 80
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
 ```
 
 ### Cluster Autoscaling
 
 **Cluster Autoscaler Installation**:
+
 ```bash
 helm repo add autoscaler https://kubernetes.github.io/autoscaler
 helm install cluster-autoscaler autoscaler/cluster-autoscaler \
@@ -437,6 +457,7 @@ kubectl get secrets -n kube-system | grep etcd
 ### Application Data Backup
 
 **PostgreSQL Backup**:
+
 ```yaml
 apiVersion: batch/v1
 kind: CronJob
@@ -450,26 +471,26 @@ spec:
       template:
         spec:
           containers:
-          - name: backup
-            image: postgres:15-alpine
-            command:
-            - /bin/sh
-            - -c
-            - pg_dump -h $DB_HOST -U $DB_USER -d $DB_NAME | gzip > /backup/backup-$(date +%Y%m%d-%H%M%S).sql.gz
-            env:
-            - name: DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: host
-            # ... other env vars
-            volumeMounts:
-            - name: backup-volume
-              mountPath: /backup
+            - name: backup
+              image: postgres:15-alpine
+              command:
+                - /bin/sh
+                - -c
+                - pg_dump -h $DB_HOST -U $DB_USER -d $DB_NAME | gzip > /backup/backup-$(date +%Y%m%d-%H%M%S).sql.gz
+              env:
+                - name: DB_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-secret
+                      key: host
+              # ... other env vars
+              volumeMounts:
+                - name: backup-volume
+                  mountPath: /backup
           volumes:
-          - name: backup-volume
-            persistentVolumeClaim:
-              claimName: backup-pvc
+            - name: backup-volume
+              persistentVolumeClaim:
+                claimName: backup-pvc
           restartPolicy: OnFailure
 ```
 
@@ -478,6 +499,7 @@ spec:
 ### Pod Security Standards
 
 **Baseline Policy**:
+
 ```yaml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
@@ -495,26 +517,27 @@ spec:
   supplementalGroups:
     rule: MustRunAs
     ranges:
-    - min: 1
-      max: 65535
+      - min: 1
+        max: 65535
   fsGroup:
     rule: MustRunAs
     ranges:
-    - min: 1
-      max: 65535
+      - min: 1
+        max: 65535
   readOnlyRootFilesystem: true
   volumes:
-  - configMap
-  - downwardAPI
-  - emptyDir
-  - persistentVolumeClaim
-  - secret
-  - projected
+    - configMap
+    - downwardAPI
+    - emptyDir
+    - persistentVolumeClaim
+    - secret
+    - projected
 ```
 
 ### Image Security
 
 **Container Image Scanning**:
+
 ```yaml
 # Using Trivy
 apiVersion: batch/v1
@@ -525,9 +548,9 @@ spec:
   template:
     spec:
       containers:
-      - name: trivy
-        image: aquasecurity/trivy:latest
-        command: ["trivy", "image", "nehanawork1/pms-apigateway:latest"]
+        - name: trivy
+          image: aquasecurity/trivy:latest
+          command: ["trivy", "image", "nehanawork1/pms-apigateway:latest"]
       restartPolicy: Never
 ```
 
@@ -536,6 +559,7 @@ spec:
 ### Spot Instances
 
 **Spot Node Group**:
+
 ```yaml
 managedNodeGroups:
   - name: spot-nodes
@@ -566,15 +590,15 @@ spec:
       nodeSelector:
         lifecycle: spot
       containers:
-      - name: app
-        image: nehanawork1/pms-apigateway:latest
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 500m
-            memory: 512Mi
+        - name: app
+          image: nehanawork1/pms-apigateway:latest
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
 ```
 
 ## Troubleshooting
@@ -582,6 +606,7 @@ spec:
 ### Common EKS Issues
 
 #### Node Not Joining Cluster
+
 ```bash
 # Check node status
 kubectl get nodes
@@ -594,6 +619,7 @@ aws ec2 describe-security-groups --group-ids $NODE_SG_ID
 ```
 
 #### Pod Scheduling Issues
+
 ```bash
 # Check pod status
 kubectl describe pod <pod-name>
@@ -606,6 +632,7 @@ kubectl get nodes -o jsonpath='{.items[*].spec.taints}'
 ```
 
 #### Network Connectivity
+
 ```bash
 # Test pod-to-pod communication
 kubectl run test --image=busybox --rm -i --restart=Never -- wget --timeout=5 -qO- http://apigateway:8088/actuator/health
@@ -620,6 +647,7 @@ aws ec2 describe-vpcs --vpc-ids $VPC_ID
 ### Performance Issues
 
 #### High CPU/Memory Usage
+
 ```bash
 # Check resource usage
 kubectl top pods -n pms-prod
@@ -632,6 +660,7 @@ kubectl logs -f deployment/prometheus-server -n monitoring
 ```
 
 #### Slow API Responses
+
 ```bash
 # Check ALB target health
 aws elbv2 describe-target-health --target-group-arn $TARGET_GROUP_ARN
@@ -648,6 +677,7 @@ kubectl exec -it postgres-pod -- psql -c "SELECT count(*) FROM pg_stat_activity;
 ### Cluster Updates
 
 **Control Plane Update**:
+
 ```bash
 aws eks update-cluster-version \
   --region us-east-1 \
@@ -656,6 +686,7 @@ aws eks update-cluster-version \
 ```
 
 **Node Group Update**:
+
 ```bash
 aws eks update-nodegroup-version \
   --cluster-name pms-prod \
@@ -666,6 +697,7 @@ aws eks update-nodegroup-version \
 ### Cluster Maintenance Windows
 
 **Scheduled Maintenance**:
+
 - **Weekly**: Security patches and minor updates
 - **Monthly**: Major version updates and infrastructure changes
 - **Quarterly**: Full cluster backup and disaster recovery testing
@@ -673,6 +705,7 @@ aws eks update-nodegroup-version \
 ### Emergency Procedures
 
 **Cluster Failure Response**:
+
 1. Assess impact and notify stakeholders
 2. Check AWS service health dashboard
 3. Attempt cluster recovery or failover

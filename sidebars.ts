@@ -87,7 +87,6 @@ const sidebars: SidebarsConfig = {
             "services/simulation/failure-modes",
           ],
         },
-        },
         {
           type: "category",
           label: "Trade Capture Service",

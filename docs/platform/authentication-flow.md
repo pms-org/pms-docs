@@ -4,8 +4,10 @@ title: Authentication Flow
 ---
 
 ---
+
 sidebar_position: 5
 title: Authentication Flow
+
 ---
 
 # Authentication Flow
@@ -17,12 +19,14 @@ The PMS platform implements a comprehensive authentication and authorization sys
 ## Architecture Components
 
 ### Authentication Service
+
 - **Endpoint**: `/api/auth/login`
 - **Protocol**: HTTP POST with JSON payload
 - **Token Type**: Bearer JWT
 - **Expiration**: 1 hour (3600 seconds)
 
 ### API Gateway Security
+
 - **Framework**: Spring Cloud Gateway with reactive security
 - **Authentication**: JWT resource server
 - **Authorization**: Path-based access control with token type validation
@@ -30,12 +34,14 @@ The PMS platform implements a comprehensive authentication and authorization sys
 ### Token Types
 
 #### USER Tokens
+
 - **Purpose**: End-user authentication for client applications
 - **Scope**: `ROLE_USER`
 - **Usage**: Portfolio creation, simulation, and user-facing operations
 - **Validation**: Required for `/api/portfolio/**` and `/simulation/**` endpoints
 
 #### SERVICE Tokens
+
 - **Purpose**: Machine-to-machine authentication
 - **Scope**: `service`
 - **Usage**: Inter-service communication and automated processes
@@ -143,11 +149,13 @@ public class SecurityConfig {
 ## Token Management
 
 ### Expiration Handling
+
 - **USER Tokens**: 1-hour expiration with automatic renewal capability
 - **SERVICE Tokens**: Configurable expiration (default 1 hour)
 - **Refresh Tokens**: Not implemented (tokens are short-lived)
 
 ### Token Validation
+
 - **Issuer Validation**: Tokens must be issued by the Auth service
 - **Signature Verification**: RSA-based signature validation
 - **Expiration Check**: Automatic rejection of expired tokens
@@ -157,16 +165,17 @@ public class SecurityConfig {
 
 ### Authentication Errors
 
-| HTTP Status | Error | Description |
-|-------------|-------|-------------|
-| 401 | Unauthorized | Invalid or missing token |
-| 403 | Forbidden | Valid token but insufficient permissions |
-| 401 | Token Expired | JWT token has expired |
-| 401 | Invalid Token | Malformed or tampered token |
+| HTTP Status | Error         | Description                              |
+| ----------- | ------------- | ---------------------------------------- |
+| 401         | Unauthorized  | Invalid or missing token                 |
+| 403         | Forbidden     | Valid token but insufficient permissions |
+| 401         | Token Expired | JWT token has expired                    |
+| 401         | Invalid Token | Malformed or tampered token              |
 
 ### Common Issues
 
 #### Token Expiration
+
 ```bash
 # Error Response
 {
@@ -178,6 +187,7 @@ public class SecurityConfig {
 ```
 
 #### Wrong Token Type
+
 ```bash
 # Error Response
 {
@@ -191,18 +201,21 @@ public class SecurityConfig {
 ## Best Practices
 
 ### Client Applications
+
 1. **Token Storage**: Store tokens securely (HttpOnly cookies, secure storage)
 2. **Token Renewal**: Implement automatic token refresh before expiration
 3. **Error Handling**: Handle 401 responses by redirecting to login
 4. **Token Type Awareness**: Use appropriate token types for different operations
 
 ### Service Integration
+
 1. **Service Tokens**: Use SERVICE tokens for inter-service communication
 2. **Token Caching**: Cache service tokens to reduce authentication overhead
 3. **Retry Logic**: Implement exponential backoff for authentication failures
 4. **Monitoring**: Monitor token validation failures and expiration rates
 
 ### Security Considerations
+
 1. **HTTPS Only**: Always use HTTPS for token transmission
 2. **Token Rotation**: Regularly rotate service client credentials
 3. **Audit Logging**: Log authentication events for security monitoring
@@ -211,6 +224,7 @@ public class SecurityConfig {
 ## Troubleshooting
 
 ### Debug Token Validation
+
 ```bash
 # Check token claims
 curl -H "Authorization: Bearer <token>" \
@@ -219,12 +233,14 @@ curl -H "Authorization: Bearer <token>" \
 ```
 
 ### Validate Token Structure
+
 ```bash
 # Decode JWT (without verification)
 echo "<token>" | cut -d'.' -f2 | base64 -d | jq
 ```
 
 ### Test Authentication Flow
+
 ```bash
 # 1. Get token
 TOKEN=$(curl -X POST http://localhost:8080/api/auth/login \

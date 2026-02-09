@@ -3,11 +3,6 @@ sidebar_position: 1
 title: API Endpoints
 ---
 
----
-sidebar_position: 1
-title: API Endpoints
----
-
 # API Endpoints Reference
 
 ## Overview
@@ -17,12 +12,15 @@ This document provides a comprehensive reference for all PMS platform API endpoi
 ## Authentication Endpoints
 
 ### Auth Service
+
 **Base URL**: `http://k8s-pms-pmsingre-*.elb.amazonaws.com/api/auth`
 
 #### POST /api/auth/login
+
 Authenticate user and obtain JWT token.
 
 **Request**:
+
 ```http
 POST /api/auth/login
 Content-Type: application/json
@@ -34,6 +32,7 @@ Content-Type: application/json
 ```
 
 **Response**:
+
 ```json
 {
   "accessToken": "eyJraWQiOiI...",
@@ -46,9 +45,11 @@ Content-Type: application/json
 **Rate Limit**: 10 requests/minute
 
 #### POST /oauth2/token
+
 Obtain service token for machine-to-machine authentication.
 
 **Request**:
+
 ```http
 POST /oauth2/token
 Authorization: Basic <base64(client_id:client_secret)>
@@ -58,6 +59,7 @@ grant_type=client_credentials&scope=service
 ```
 
 **Response**:
+
 ```json
 {
   "access_token": "eyJraWQiOiI...",
@@ -72,12 +74,15 @@ grant_type=client_credentials&scope=service
 ## Portfolio Service Endpoints
 
 ### Portfolio Management
+
 **Base URL**: `http://k8s-pms-pmsingre-*.elb.amazonaws.com/api/portfolio`
 
 #### POST /api/portfolio/create
+
 Create a new portfolio.
 
 **Request**:
+
 ```http
 POST /api/portfolio/create
 Authorization: Bearer <USER_TOKEN>
@@ -91,6 +96,7 @@ Content-Type: application/json
 ```
 
 **Response**:
+
 ```json
 {
   "portfolioId": "550e8400-e29b-41d4-a716-446655440000",
@@ -101,16 +107,19 @@ Content-Type: application/json
 **Security**: USER token required
 **Rate Limit**: 5 requests/minute per user
 
-#### GET /api/portfolio/{portfolioId}
+#### GET /api/portfolio/\{portfolioId\}
+
 Retrieve portfolio details by ID.
 
 **Request**:
+
 ```http
 GET /api/portfolio/550e8400-e29b-41d4-a716-446655440000
 Authorization: Bearer <USER_TOKEN>
 ```
 
 **Response**:
+
 ```json
 {
   "portfolioId": "550e8400-e29b-41d4-a716-446655440000",
@@ -126,15 +135,18 @@ Authorization: Bearer <USER_TOKEN>
 **Rate Limit**: 60 requests/minute
 
 #### GET /api/portfolio/list
+
 List all portfolios (paginated).
 
 **Request**:
+
 ```http
 GET /api/portfolio/list?page=0&size=20&sort=createdAt,desc
 Authorization: Bearer <USER_TOKEN>
 ```
 
 **Response**:
+
 ```json
 {
   "content": [
@@ -161,12 +173,15 @@ Authorization: Bearer <USER_TOKEN>
 ## Simulation Service Endpoints
 
 ### Portfolio Simulation
+
 **Base URL**: `http://k8s-pms-pmsingre-*.elb.amazonaws.com/simulation`
 
 #### POST /simulation/create-portfolio
+
 Create portfolio via simulation service.
 
 **Request**:
+
 ```http
 POST /simulation/create-portfolio
 Authorization: Bearer <USER_TOKEN>
@@ -180,6 +195,7 @@ Content-Type: application/json
 ```
 
 **Response**:
+
 ```json
 {
   "portfolioId": "7c9e6679-7425-40de-944b-e07fc1f90ae7"
@@ -190,9 +206,11 @@ Content-Type: application/json
 **Rate Limit**: 5 requests/minute per user
 
 #### POST /simulation/run-scenario
+
 Execute portfolio simulation scenario.
 
 **Request**:
+
 ```http
 POST /simulation/run-scenario
 Authorization: Bearer <USER_TOKEN>
@@ -211,6 +229,7 @@ Content-Type: application/json
 ```
 
 **Response**:
+
 ```json
 {
   "simulationId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
@@ -222,23 +241,26 @@ Content-Type: application/json
 **Security**: USER token required
 **Rate Limit**: 10 requests/minute per user
 
-#### GET /simulation/status/{simulationId}
+#### GET /simulation/status/\{simulationId\}
+
 Check simulation execution status.
 
 **Request**:
+
 ```http
 GET /simulation/status/a1b2c3d4-e5f6-7890-abcd-ef1234567890
 Authorization: Bearer <USER_TOKEN>
 ```
 
 **Response**:
+
 ```json
 {
   "simulationId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "status": "COMPLETED",
   "results": {
-    "finalValue": 85000.50,
-    "pnl": -15000.00,
+    "finalValue": 85000.5,
+    "pnl": -15000.0,
     "maxDrawdown": 0.25
   },
   "completedAt": "2026-02-09T11:10:00Z"
@@ -251,18 +273,22 @@ Authorization: Bearer <USER_TOKEN>
 ## Analytics Service Endpoints
 
 ### Risk Analytics
+
 **Base URL**: `http://k8s-pms-pmsingre-*.elb.amazonaws.com/api/analytics`
 
-#### GET /api/analytics/portfolio/{portfolioId}/risk
+#### GET /api/analytics/portfolio/\{portfolioId\}/risk
+
 Get portfolio risk metrics.
 
 **Request**:
+
 ```http
 GET /api/analytics/portfolio/550e8400-e29b-41d4-a716-446655440000/risk
 Authorization: Bearer <SERVICE_TOKEN>
 ```
 
 **Response**:
+
 ```json
 {
   "portfolioId": "550e8400-e29b-41d4-a716-446655440000",
@@ -280,22 +306,25 @@ Authorization: Bearer <SERVICE_TOKEN>
 **Security**: SERVICE token required
 **Rate Limit**: 100 requests/minute
 
-#### GET /api/analytics/portfolio/{portfolioId}/pnl
+#### GET /api/analytics/portfolio/\{portfolioId\}/pnl
+
 Get unrealized PnL data.
 
 **Request**:
+
 ```http
 GET /api/analytics/portfolio/550e8400-e29b-41d4-a716-446655440000/pnl?period=1D
 Authorization: Bearer <SERVICE_TOKEN>
 ```
 
 **Response**:
+
 ```json
 {
   "portfolioId": "550e8400-e29b-41d4-a716-446655440000",
   "pnl": {
     "unrealized": 2500.75,
-    "realized": 15000.00,
+    "realized": 15000.0,
     "total": 17500.75
   },
   "period": "1D",
@@ -309,12 +338,15 @@ Authorization: Bearer <SERVICE_TOKEN>
 ## Trade Capture Service Endpoints
 
 ### Trade Management
+
 **Base URL**: `http://k8s-pms-pmsingre-*.elb.amazonaws.com/api/trade`
 
 #### POST /api/trade/capture
+
 Capture a new trade.
 
 **Request**:
+
 ```http
 POST /api/trade/capture
 Authorization: Bearer <SERVICE_TOKEN>
@@ -331,6 +363,7 @@ Content-Type: application/json
 ```
 
 **Response**:
+
 ```json
 {
   "tradeId": "t123456789",
@@ -342,16 +375,19 @@ Content-Type: application/json
 **Security**: SERVICE token required
 **Rate Limit**: 500 requests/minute
 
-#### GET /api/trade/portfolio/{portfolioId}
+#### GET /api/trade/portfolio/\{portfolioId\}
+
 Get trade history for portfolio.
 
 **Request**:
+
 ```http
 GET /api/trade/portfolio/550e8400-e29b-41d4-a716-446655440000?startDate=2026-01-01&endDate=2026-02-09
 Authorization: Bearer <SERVICE_TOKEN>
 ```
 
 **Response**:
+
 ```json
 {
   "portfolioId": "550e8400-e29b-41d4-a716-446655440000",
@@ -376,18 +412,22 @@ Authorization: Bearer <SERVICE_TOKEN>
 ## Leaderboard Service Endpoints
 
 ### Performance Rankings
+
 **Base URL**: `http://k8s-pms-pmsingre-*.elb.amazonaws.com/api/leaderboard`
 
 #### GET /api/leaderboard/top-performers
+
 Get top performing portfolios.
 
 **Request**:
+
 ```http
 GET /api/leaderboard/top-performers?period=1M&limit=10
 Authorization: Bearer <USER_TOKEN>
 ```
 
 **Response**:
+
 ```json
 {
   "period": "1M",
@@ -396,7 +436,7 @@ Authorization: Bearer <USER_TOKEN>
       "rank": 1,
       "portfolioId": "550e8400-e29b-41d4-a716-446655440000",
       "performance": 0.156,
-      "pnl": 15600.00
+      "pnl": 15600.0
     }
   ],
   "totalPortfolios": 500
@@ -409,17 +449,21 @@ Authorization: Bearer <USER_TOKEN>
 ## Health Check Endpoints
 
 ### Service Health
+
 **Base URL**: `http://k8s-pms-pmsingre-*.elb.amazonaws.com`
 
 #### GET /actuator/health
+
 Service health check.
 
 **Request**:
+
 ```http
 GET /actuator/health
 ```
 
 **Response**:
+
 ```json
 {
   "status": "UP",
@@ -449,28 +493,22 @@ GET /actuator/health
 ## WebSocket Endpoints
 
 ### Real-time Data
+
 **Base URL**: `ws://k8s-pms-pmsingre-*.elb.amazonaws.com/ws`
 
-#### /ws/portfolio/{portfolioId}
-Portfolio real-time updates.
+#### /ws/portfolio/\{portfolioId\}
 
-**Connection**:
-```javascript
-const ws = new WebSocket('ws://k8s-pms-pmsingre-*.elb.amazonaws.com/ws/portfolio/550e8400-e29b-41d4-a716-446655440000');
-ws.onmessage = (event) => {
-  const data = JSON.parse(event.data);
-  console.log('Portfolio update:', data);
-};
-```
+Portfolio real-time updates via WebSocket connection.
 
 **Message Format**:
+
 ```json
 {
   "type": "PORTFOLIO_UPDATE",
   "portfolioId": "550e8400-e29b-41d4-a716-446655440000",
   "data": {
-    "currentValue": 125000.50,
-    "pnl": 25000.50,
+    "currentValue": 125000.5,
+    "pnl": 25000.5,
     "lastUpdate": "2026-02-09T11:00:00Z"
   }
 }
@@ -496,17 +534,17 @@ All endpoints return standardized error responses:
 
 ## Common HTTP Status Codes
 
-| Status Code | Description | Common Causes |
-|-------------|-------------|---------------|
-| 200 | Success | Request processed successfully |
-| 201 | Created | Resource created successfully |
-| 400 | Bad Request | Invalid request data or parameters |
-| 401 | Unauthorized | Missing or invalid authentication token |
-| 403 | Forbidden | Insufficient permissions or wrong token type |
-| 404 | Not Found | Resource or endpoint not found |
-| 429 | Too Many Requests | Rate limit exceeded |
-| 500 | Internal Server Error | Unexpected server error |
-| 503 | Service Unavailable | Service temporarily unavailable |
+| Status Code | Description           | Common Causes                                |
+| ----------- | --------------------- | -------------------------------------------- |
+| 200         | Success               | Request processed successfully               |
+| 201         | Created               | Resource created successfully                |
+| 400         | Bad Request           | Invalid request data or parameters           |
+| 401         | Unauthorized          | Missing or invalid authentication token      |
+| 403         | Forbidden             | Insufficient permissions or wrong token type |
+| 404         | Not Found             | Resource or endpoint not found               |
+| 429         | Too Many Requests     | Rate limit exceeded                          |
+| 500         | Internal Server Error | Unexpected server error                      |
+| 503         | Service Unavailable   | Service temporarily unavailable              |
 
 ## Rate Limiting
 
@@ -520,6 +558,7 @@ Rate limits are enforced per client IP and user token:
 - **Health Checks**: 60 req/min
 
 Rate limit headers are included in responses:
+
 ```
 X-RateLimit-Remaining: 9
 X-RateLimit-Requested-Tokens: 1
@@ -530,6 +569,7 @@ X-RateLimit-Replenish-Rate: 5
 ## Versioning
 
 API versioning is handled through URL paths:
+
 - **Current Version**: v1 (implied, no version prefix)
 - **Future Versions**: `/v2/portfolio/create`
 
@@ -542,6 +582,7 @@ API versioning is handled through URL paths:
 ## Pagination
 
 List endpoints support pagination:
+
 - `page`: Page number (0-based)
 - `size`: Page size (default: 20, max: 100)
 - `sort`: Sort criteria (e.g., `createdAt,desc`)
@@ -549,6 +590,7 @@ List endpoints support pagination:
 ## Filtering
 
 Advanced filtering supported on list endpoints:
+
 - `startDate`: ISO 8601 date string
 - `endDate`: ISO 8601 date string
 - `status`: Status filter
